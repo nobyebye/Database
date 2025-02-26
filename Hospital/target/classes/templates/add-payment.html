@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>添加支付</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+<h1>添加支付</h1>
+<form action="/payments/save" method="post" th:object="${payment}">
+    <label>预约:
+        <select th:field="*{appointment.appointmentId}" required>
+            <option value="">-- 选择预约 --</option>
+            <option th:each="appointment : ${appointments}" th:value="${appointment.appointmentId}" th:text="${appointment.appointmentId}"></option>
+        </select>
+    </label><br>
+
+    <label>金额: <input type="number" th:field="*{amount}" step="0.01" required/></label><br>
+
+    <label>支付方式:
+        <select th:field="*{paymentMethod}" required>
+            <option value="CREDIT_CARD">信用卡</option>
+            <option value="DEBIT_CARD">借记卡</option>
+            <option value="CASH">现金</option>
+            <option value="ONLINE_TRANSFER">在线转账</option>
+        </select>
+    </label><br>
+
+    <button type="submit">提交</button>
+</form>
+
+<!-- 消息弹窗 -->
+<script th:if="${error}">
+    Swal.fire({
+        icon: 'error',
+        title: '错误!',
+        text: '[[${error}]]',
+    });
+</script>
+
+<script th:if="${success}">
+    Swal.fire({
+        icon: 'success',
+        title: '成功!',
+        text: '[[${success}]]',
+    });
+</script>
+
+<a href="/payments" class="btn btn-primary">返回支付记录列表</a>
+<a href="/index" class="btn btn-secondary">返回目录</a>
+
+</body>
+</html>

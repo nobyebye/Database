@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>添加医疗记录</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+<h1>添加医疗记录</h1>
+<form action="/medical-records/save" method="post" th:object="${medicalRecord}">
+    <label>预约:
+        <select th:field="*{appointment.appointmentId}" required>
+            <option value="">-- 选择预约 --</option>
+            <option th:each="appointment : ${appointments}" th:value="${appointment.appointmentId}" th:text="${appointment.appointmentId}"></option>
+        </select>
+    </label><br>
+
+    <label>诊断: <input type="text" th:field="*{diagnosis}" required/></label><br>
+    <label>治疗方案: <input type="text" th:field="*{treatmentPlan}" required/></label><br>
+    <label>处方: <input type="text" th:field="*{prescription}"/></label><br>
+    <label>检查结果: <input type="text" th:field="*{testResults}"/></label><br>
+
+    <button type="submit">提交</button>
+</form>
+
+<!-- 消息弹窗 -->
+<script th:if="${error}">
+    Swal.fire({
+        icon: 'error',
+        title: '错误!',
+        text: '[[${error}]]',
+    });
+</script>
+
+<script th:if="${success}">
+    Swal.fire({
+        icon: 'success',
+        title: '成功!',
+        text: '[[${success}]]',
+    });
+</script>
+
+<a href="/medical-records" class="btn btn-primary">返回医疗记录列表</a>
+<a href="/index" class="btn btn-secondary">返回目录</a>
+
+</body>
+</html>

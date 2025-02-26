@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>添加病人</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+<h1>添加病人</h1>
+<form action="/patients/save" method="post" th:object="${patient}">
+  <label>姓名: <input type="text" th:field="*{patientname}" required/></label><br>
+  <label>性别:
+    <select th:field="*{gender}" required>
+      <option value="Male">男</option>
+      <option value="Female">女</option>
+    </select>
+  </label><br>
+  <label>出生日期: <input type="date" th:field="*{dob}" required/></label><br>
+  <label>邮箱: <input type="email" th:field="*{email}"/></label><br>
+  <label>地址: <input type="text" th:field="*{address}"/></label><br>
+  <button type="submit">保存</button>
+</form>
+
+<!-- 显示错误消息 -->
+<script th:if="${error != null}">
+  Swal.fire({
+    icon: 'error',
+    title: '错误!',
+    text: '[[${error}]]',
+  });
+</script>
+
+<!-- 显示成功消息 -->
+<script th:if="${success != null}">
+  Swal.fire({
+    icon: 'success',
+    title: '成功!',
+    text: '[[${success}]]',
+  });
+</script>
+
+<a href="/patients" class="btn btn-primary">返回病人列表</a>
+<a href="/index" class="btn btn-secondary">返回目录</a>
+
+</body>
+</html>

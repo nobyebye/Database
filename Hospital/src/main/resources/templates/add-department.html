@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>添加科室</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- 引入 SweetAlert -->
+</head>
+<body>
+<h1>添加科室</h1>
+<form action="/departments/save" method="post" th:object="${department}">
+    <label>科室名称: <input type="text" th:field="*{departmentName}" required/></label><br>
+    <label>位置: <input type="text" th:field="*{location}" required/></label><br>
+    <button type="submit">保存</button>
+</form>
+
+<!-- 错误消息 -->
+<script th:if="${error}">
+    Swal.fire({
+        icon: 'error',
+        title: '错误!',
+        text: '[[${error}]]',
+    });
+</script>
+
+<!-- 成功消息 -->
+<script th:if="${success}">
+    Swal.fire({
+        icon: 'success',
+        title: '成功!',
+        text: '[[${success}]]',
+    });
+</script>
+
+<a href="/departments" class="btn btn-primary">返回科室列表</a>
+<a href="/index" class="btn btn-secondary">返回目录</a>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>医生列表</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <h1 class="text-center text-primary">医生列表</h1>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/doctors/new" class="btn btn-success">添加新医生</a>
+        <a href="/index" class="btn btn-secondary">返回目录</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>专长</th>
+                <th>科室</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="doctor : ${doctors}">
+                <td th:text="${doctor.doctorId}"></td>
+                <td th:text="${doctor.doctorName}"></td>
+                <td th:text="${doctor.specialization}"></td>
+                <td th:text="${doctor.department.departmentName}"></td>
+                <td>
+                    <a th:href="@{/doctors/edit/{id}(id=${doctor.doctorId})}" class="btn btn-warning btn-sm">编辑</a>
+                    <a th:href="@{/doctors/delete/{id}(id=${doctor.doctorId})}" class="btn btn-danger btn-sm" onclick="return confirm('确定要删除吗？');">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

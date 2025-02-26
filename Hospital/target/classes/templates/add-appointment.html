@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>预约管理</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+  <h1 class="text-center text-primary">预约列表</h1>
+  <div class="d-flex justify-content-between mb-3">
+    <a href="/appointments/new" class="btn btn-success">添加预约</a>
+    <a href="/index" class="btn btn-secondary">返回目录</a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>医生</th>
+        <th>病人</th>
+        <th>日期</th>
+        <th>时间</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="appointment : ${appointments}">
+        <td th:text="${appointment.appointmentid}"></td>
+        <td th:text="${appointment.doctor.doctorid}"></td>
+        <td th:text="${appointment.patient.patientid}"></td>
+        <td th:text="${appointment.appointmentdate}"></td>
+        <td th:text="${appointment.appointmentime}"></td>
+        <td th:text="${appointment.status}"></td>
+        <td>
+          <a th:href="@{/appointments/delete/{id}(id=${appointment.appointmentId})}" class="btn btn-danger btn-sm">删除</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Doctor</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+<form action="/doctors/save" method="post">
+    <input type="text" name="doctorName" placeholder="Doctor Name" required>
+    <input type="text" name="specialization" placeholder="Specialization" required>
+
+    <select name="department.departmentId" required>
+        <option value="">-- Select Department --</option>
+        <option th:each="dept : ${departments}" th:value="${dept.departmentId}" th:text="${dept.departmentName}"></option>
+    </select>
+
+    <button type="submit">Save</button>
+</form>
+
+<script th:if="${error}">
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '[[${error}]]',
+    });
+</script>
+
+<script th:if="${success}">
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: '[[${success}]]',
+    });
+</script>
+<a href="/index" class="btn btn-primary">返回目录</a>
+
+</body>
+</html>

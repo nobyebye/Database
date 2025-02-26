@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>医院管理系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .menu {
+            margin-top: 30px;
+        }
+        .menu a {
+            display: block;
+            width: 200px;
+            margin: 10px auto;
+            padding: 10px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+        }
+        .menu a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+<h1>医院管理系统</h1>
+<p>请选择一个模块：</p>
+<div class="menu">
+    <a href="/doctors">医生管理</a>
+    <a href="/patients">病人管理</a>
+    <a href="/appointments">预约管理</a>
+    <a href="/departments">科室管理</a>
+    <a href="/payments">支付管理</a>
+    <a href="/medical-records">医疗记录管理</a>
+</div>
+</body>
+</html>

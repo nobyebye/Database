@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑医生信息</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <h2 class="text-center">编辑医生信息</h2>
+    <form th:action="@{/doctors/update}" method="post">
+        <input type="hidden" name="doctorId" th:value="${doctor.doctorId}">
+
+        <div class="mb-3">
+            <label class="form-label">姓名</label>
+            <input type="text" class="form-control" name="doctorName" th:value="${doctor.doctorName}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">专长</label>
+            <input type="text" class="form-control" name="specialization" th:value="${doctor.specialization}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">保存更改</button>
+        <a href="/doctors" class="btn btn-secondary">取消</a>
+    </form>
+</div>
+</body>
+</html>
