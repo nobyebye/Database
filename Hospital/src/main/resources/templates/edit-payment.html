@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Payment Record</title>
+</head>
+<body>
+<h1>Edit Payment Record</h1>
+
+<form action="/payments/update" method="post">
+  <input type="hidden" name="id" th:value="${payment.id}">
+
+  <label>Amount:
+    <input type="number" name="amount" th:value="${payment.amount}" step="0.01" required/>
+  </label><br>
+
+  <label>Payment Method:
+    <select name="paymentMethod" required>
+      <option value="CREDIT_CARD" th:selected="${payment.paymentMethod == 'CREDIT_CARD'}">Credit Card</option>
+      <option value="DEBIT_CARD" th:selected="${payment.paymentMethod == 'DEBIT_CARD'}">Debit Card</option>
+      <option value="CASH" th:selected="${payment.paymentMethod == 'CASH'}">Cash</option>
+      <option value="ONLINE_TRANSFER" th:selected="${payment.paymentMethod == 'ONLINE_TRANSFER'}">Online Transfer</option>
+    </select>
+  </label><br>
+
+  <label>Payment Status:
+    <select name="paymentStatus" required>
+      <option value="PENDING" th:selected="${payment.paymentStatus == 'PENDING'}">Pending</option>
+      <option value="COMPLETED" th:selected="${payment.paymentStatus == 'COMPLETED'}">Completed</option>
+      <option value="FAILED" th:selected="${payment.paymentStatus == 'FAILED'}">Failed</option>
+    </select>
+  </label><br>
+
+  <button type="submit">Save Changes</button>
+</form>
+
+<a href="/payments">Back to Payment Records</a>
+</body>
+</html>

@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>医院管理系统</title>
+    <title>Hospital Management System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 50px;
+            margin: 0;
+            padding: 0;
+            background-color: #ecf0f1;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
             color: #2c3e50;
@@ -16,29 +26,44 @@
         }
         .menu a {
             display: block;
-            width: 200px;
+            width: 80%;
             margin: 10px auto;
-            padding: 10px;
+            padding: 12px;
             text-decoration: none;
             background-color: #3498db;
             color: white;
             border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
         }
         .menu a:hover {
             background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            font-size: 14px;
+            color: #7f8c8d;
         }
     </style>
 </head>
 <body>
-<h1>医院管理系统</h1>
-<p>请选择一个模块：</p>
-<div class="menu">
-    <a href="/doctors">医生管理</a>
-    <a href="/patients">病人管理</a>
-    <a href="/appointments">预约管理</a>
-    <a href="/departments">科室管理</a>
-    <a href="/payments">支付管理</a>
-    <a href="/medical-records">医疗记录管理</a>
+<div class="container">
+    <h1>Hospital Management System</h1>
+    <p>Please select a module:</p>
+    <div class="menu">
+        <a href="/doctors">Doctor Management</a>
+        <a href="/patients">Patient Management</a>
+        <a href="/appointments">Appointment Management</a>
+        <a href="/departments">Department Management</a>
+        <a href="/payments">Payment Management</a>
+        <a href="/medical-records">Medical Records Management</a>
+    </div>
+</div>
+<div class="footer">
+    Created by: Guochen Li & Yanli Zhang
 </div>
 </body>
 </html>

@@ -1,44 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>预约管理</title>
+    <title>Appointment Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 <div class="container mt-5">
-    <h1 class="text-center text-primary">预约列表</h1>
+    <h1 class="text-center text-primary">Appointment List</h1>
+
     <div class="d-flex justify-content-between mb-3">
-        <a href="/appointments/new" class="btn btn-success">添加预约</a>
-        <a href="/index" class="btn btn-secondary">返回目录</a>
+        <a href="/appointments/new" class="btn btn-success">Add Appointment</a>
+        <a href="/index" class="btn btn-secondary">Back to Home</a>
     </div>
+
+    <!-- Filter Form -->
+    <form action="/appointments" method="get" class="mb-3 d-flex">
+        <label class="me-2">Filter by Doctor:</label>
+        <select name="doctorId" class="form-select me-2" style="width: 200px;">
+            <option value="">All Doctors</option>
+            <option th:each="doctor : ${doctors}" th:value="${doctor.doctorId}" th:text="${doctor.doctorId}"></option>
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <!-- Error Message -->
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
             <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>医生</th>
-                <th>病人</th>
-                <th>日期</th>
-                <th>时间</th>
-                <th>状态</th>
-                <th>操作</th>
+                <th>Doctor ID</th>
+                <th>Doctor Name</th>
+                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="appointment : ${appointments}">
                 <td th:text="${appointment.id}"></td>
-                <td th:text="${appointment.doctor.name}"></td>
-                <td th:text="${appointment.patient.name}"></td>
-                <td th:text="${appointment.appointmentDate}"></td>
-                <td th:text="${appointment.timeSlot}"></td>
+                <td th:text="${appointment.doctor != null ? appointment.doctor.doctorId : 'N/A'}"></td>
+                <td th:text="${appointment.doctor != null ? appointment.doctor.doctorName : 'Unknown Doctor'}"></td>
+                <td th:text="${appointment.patient != null ? appointment.patient.patientId : 'N/A'}"></td>
+                <td th:text="${appointment.patient != null ? appointment.patient.patientName : 'Unknown Patient'}"></td>
+                <td th:text="${appointment.bookingDate}"></td>
+                <td th:text="${appointment.time}"></td>
                 <td th:text="${appointment.status}"></td>
                 <td>
-                    <a th:href="@{/appointments/delete/{id}(id=${appointment.id})}" class="btn btn-danger btn-sm">删除</a>
+                    <a th:href="@{/appointments/edit/{id}(id=${appointment.id})}" class="btn btn-primary btn-sm">Edit</a>
+                    <a th:href="@{/appointments/delete/{id}(id=${appointment.id})}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

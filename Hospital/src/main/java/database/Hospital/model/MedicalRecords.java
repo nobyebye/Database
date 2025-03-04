@@ -4,41 +4,40 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "medicalrecords")  // 表名修正
+@Table(name = "medicalrecords")
 public class MedicalRecords {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID 自动递增
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recordid;
 
-    @ManyToOne  // 修改为 ManyToOne，一个预约可能有多个病历
-    @JoinColumn(name = "appointmentid", nullable = false)
-    private Appointments appointment; // 关联预约信息
+    @OneToOne
+    @JoinColumn(name = "appointmentid", nullable = false, unique = true)
+    private Appointments appointment;
 
-    @ManyToOne  // 关联病人
+    @ManyToOne
     @JoinColumn(name = "patientid", nullable = false)
     private Patients patient;
 
-    @ManyToOne  // 关联医生
+    @ManyToOne
     @JoinColumn(name = "doctorid", nullable = false)
     private Doctors doctor;
 
     @Column(nullable = false)
-    private String diagnosis; // 诊断
+    private String diagnosis;
 
     @Column(name = "treatmentplan", nullable = false)
-    private String treatmentPlan; // 治疗方案
+    private String treatmentPlan;
 
     @Column
-    private String prescription; // 处方
+    private String prescription;
 
     @Column(name = "testresults")
-    private String testResults; // 检查结果
+    private String testResults;
 
     @Column(name = "visitdate", nullable = false)
-    private LocalDate visitDate = LocalDate.now(); // 默认当前日期
+    private LocalDate visitDate = LocalDate.now();
 
-    // 构造方法
     public MedicalRecords() {}
 
     public MedicalRecords(Appointments appointment, Patients patient, Doctors doctor, String diagnosis, String treatmentPlan, String prescription, String testResults, LocalDate visitDate) {
@@ -52,7 +51,6 @@ public class MedicalRecords {
         this.visitDate = visitDate;
     }
 
-    // Getter & Setter
     public Long getId() { return recordid; }
     public void setId(Long id) { this.recordid = id; }
 
@@ -79,4 +77,6 @@ public class MedicalRecords {
 
     public LocalDate getVisitDate() { return visitDate; }
     public void setVisitDate(LocalDate visitDate) { this.visitDate = visitDate; }
+
+
 }

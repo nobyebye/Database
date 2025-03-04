@@ -5,61 +5,78 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "payments") // 确保表名一致
+@Table(name = "payments")
 public class Payments {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID 自动递增
-    private Long paymentid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "paymentid")
+    private Long paymentId;
 
     @OneToOne
     @JoinColumn(name = "appointmentid", nullable = false, unique = true)
-    private Appointments appointment; // 关联预约信息
+    private Appointments appointment;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal amount; // **改为 BigDecimal，避免精度问题**
+    private BigDecimal amount;
 
     @Column(name = "paymentdate", nullable = false)
-    private LocalDate paymentDate = LocalDate.now(); // **改为 LocalDate**
+    private LocalDate paymentDate = LocalDate.now();
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "paymentstatus", nullable = false)
-    private String paymentStatus = "Pending"; // 默认值
+    private PaymentStatus paymentStatus;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "paymentmethod", nullable = false)
-    private PaymentMethod paymentMethod; // 支付方式
+    private PaymentMethod paymentMethod;
 
-    // 枚举类
-    public enum PaymentMethod {
-        CREDIT_CARD, DEBIT_CARD, CASH, ONLINE_TRANSFER
+
+    public Long getPaymentId() {
+        return paymentId;
     }
 
-    // 构造方法
-    public Payments() {}
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
+    }
 
-    public Payments(Appointments appointment, BigDecimal amount, String paymentStatus, PaymentMethod paymentMethod) {
+    public Appointments getAppointment() {  // ✅ 确保这个方法存在
+        return appointment;
+    }
+
+    public void setAppointment(Appointments appointment) {  // ✅ 确保这个方法存在
         this.appointment = appointment;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
-
-    // Getter & Setter
-    public Long getId() { return paymentid; }
-    public void setId(Long id) { this.paymentid = id; }
-
-    public Appointments getAppointment() { return appointment; }
-    public void setAppointment(Appointments appointment) { this.appointment = appointment; }
-
-    public BigDecimal getAmount() { return amount; }
-    public void setAmount(BigDecimal amount) { this.amount = amount; }
-
-    public LocalDate getPaymentDate() { return paymentDate; }
-    public void setPaymentDate(LocalDate paymentDate) { this.paymentDate = paymentDate; }
-
-    public String getPaymentStatus() { return paymentStatus; }
-    public void setPaymentStatus(String paymentStatus) { this.paymentStatus = paymentStatus; }
-
-    public PaymentMethod getPaymentMethod() { return paymentMethod; }
-    public void setPaymentMethod(PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }
 }

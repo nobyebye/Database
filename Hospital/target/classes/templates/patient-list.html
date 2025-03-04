@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>病人管理</title>
+  <title>Patient Management</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 <div class="container mt-5">
-  <h1 class="text-center text-primary">病人列表</h1>
+  <h1 class="text-center text-primary">Patient List</h1>
   <div class="d-flex justify-content-between mb-3">
-    <a href="/patients/new" class="btn btn-success">添加病人</a>
-    <a href="/index" class="btn btn-secondary">返回目录</a>
+    <a href="/patients/new" class="btn btn-success">Add Patient</a>
+    <a href="/index" class="btn btn-secondary">Back to Main Menu</a>
   </div>
   <div class="table-responsive">
     <table class="table table-striped table-bordered">
       <thead class="table-dark">
       <tr>
         <th>ID</th>
-        <th>姓名</th>
-        <th>性别</th>
-        <th>年龄</th>
-        <th>邮箱</th>
-        <th>地址</th>
-        <th>操作</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
+
       <tr th:each="patient : ${patients}">
-        <td th:text="${patient.id}"></td>
-        <td th:text="${patient.patientname}"></td>
+        <td th:text="${patient.patientId}"></td>
+        <td th:text="${patient.patientName}"></td>
         <td th:text="${patient.gender}"></td>
-        <td th:text="${patient.dob != null ? #dates.yearsBetween(#dates.create(patient.dob.year, patient.dob.monthValue, patient.dob.dayOfMonth), #dates.createNow()) : 'N/A'}"></td>
+        <td th:text="${patient.age}"></td>  <!-- Age calculated from `getAge()` -->
         <td th:text="${patient.email}"></td>
         <td th:text="${patient.address}"></td>
         <td>
-          <a th:href="@{/patients/delete/{id}(id=${patient.patientid})}" class="btn btn-danger btn-sm">删除</a>
+          <a th:href="@{/patients/edit/{id}(id=${patient.patientId})}" class="btn btn-warning btn-sm">Edit</a>
+          <a th:href="@{/patients/delete/{id}(id=${patient.patientId})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
         </td>
       </tr>
+      
       </tbody>
     </table>
   </div>

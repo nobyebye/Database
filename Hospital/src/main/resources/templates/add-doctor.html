@@ -5,37 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Doctor</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .btn-primary {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .btn-primary:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <h2>Add Doctor</h2>
+    <form action="/doctors/save" method="post">
+        <div class="form-group">
+            <label for="doctorName">Doctor Name</label>
+            <input type="text" id="doctorName" name="doctorName" placeholder="Enter doctor name" required>
+        </div>
 
-<form action="/doctors/save" method="post">
-    <input type="text" name="doctorName" placeholder="Doctor Name" required>
-    <input type="text" name="specialization" placeholder="Specialization" required>
+        <div class="form-group">
+            <label for="dob">Birthdate</label>
+            <input type="date" id="dob" name="dob" required>
+        </div>
 
-    <select name="department.departmentId" required>
-        <option value="">-- Select Department --</option>
-        <option th:each="dept : ${departments}" th:value="${dept.departmentId}" th:text="${dept.departmentName}"></option>
-    </select>
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="">-- Select Gender --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
 
-    <button type="submit">Save</button>
-</form>
+        <div class="form-group">
+            <label for="specialization">Specialization</label>
+            <input type="text" id="specialization" name="specialization" placeholder="Enter specialization" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="department">Department</label>
+            <select id="department" name="department.departmentId" required>
+                <option value="">-- Select Department --</option>
+                <option th:each="dept : ${departments}" th:value="${dept.departmentId}" th:text="${dept.departmentName}"></option>
+            </select>
+        </div>
+
+        <button type="submit">Save</button>
+    </form>
+    <a href="/doctors" class="btn-primary">Back to Doctor List</a>
+</div>
 
 <script th:if="${error}">
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: '[[${error}]]',
+        text: "[[${error}]]",
     });
 </script>
-
-<script th:if="${success}">
-    Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: '[[${success}]]',
-    });
-</script>
-<a href="/index" class="btn btn-primary">返回目录</a>
-
 </body>
 </html>

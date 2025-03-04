@@ -2,27 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>编辑医生信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Doctor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 <div class="container mt-5">
-    <h2 class="text-center">编辑医生信息</h2>
-    <form th:action="@{/doctors/update}" method="post">
-        <input type="hidden" name="doctorId" th:value="${doctor.doctorId}">
+    <h2 class="text-center text-primary">Edit Doctor</h2>
+
+    <form th:action="@{/doctors/update}" method="post" th:object="${doctor}" class="bg-white p-4 rounded shadow-sm">
+        <input type="hidden" th:field="*{doctorId}"/> <!-- Hidden field for ID -->
 
         <div class="mb-3">
-            <label class="form-label">姓名</label>
-            <input type="text" class="form-control" name="doctorName" th:value="${doctor.doctorName}" required>
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" th:field="*{doctorName}" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">专长</label>
-            <input type="text" class="form-control" name="specialization" th:value="${doctor.specialization}" required>
+            <label class="form-label">Gender</label>
+            <select class="form-select" th:field="*{gender}" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">保存更改</button>
-        <a href="/doctors" class="btn btn-secondary">取消</a>
+        <div class="mb-3">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" th:field="*{dob}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Specialization</label>
+            <input type="text" class="form-control" th:field="*{specialization}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" th:field="*{email}" required>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/doctors" class="btn btn-secondary">Cancel</a>
+        </div>
     </form>
 </div>
 </body>

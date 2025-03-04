@@ -1,45 +1,116 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>添加病人</title>
+  <title>Add Patient</title>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .btn-primary {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .btn-primary:hover {
+      background-color: #218838;
+    }
+  </style>
 </head>
 <body>
-<h1>添加病人</h1>
-<form action="/patients/save" method="post" th:object="${patient}">
-  <label>姓名: <input type="text" th:field="*{patientname}" required/></label><br>
-  <label>性别:
-    <select th:field="*{gender}" required>
-      <option value="Male">男</option>
-      <option value="Female">女</option>
-    </select>
-  </label><br>
-  <label>出生日期: <input type="date" th:field="*{dob}" required/></label><br>
-  <label>邮箱: <input type="email" th:field="*{email}"/></label><br>
-  <label>地址: <input type="text" th:field="*{address}"/></label><br>
-  <button type="submit">保存</button>
-</form>
+<div class="container">
+  <h1>Add Patient</h1>
+  <form action="/patients/save" method="post" th:object="${patient}">
+    <div class="form-group">
+      <label>Name:</label>
+      <input type="text" th:field="*{patientName}" required/>
+    </div>
 
-<!-- 显示错误消息 -->
+    <div class="form-group">
+      <label>Gender:</label>
+      <select th:field="*{gender}" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Date of Birth:</label>
+      <input type="date" th:field="*{dob}" required/>
+    </div>
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" th:field="*{email}"/>
+    </div>
+
+    <div class="form-group">
+      <label>Address:</label>
+      <input type="text" th:field="*{address}"/>
+    </div>
+
+    <button type="submit">Save</button>
+  </form>
+
+  <a href="/patients" class="btn-primary">Back to Patient List</a>
+</div>
+
+<!-- Display Error Message -->
 <script th:if="${error != null}">
   Swal.fire({
     icon: 'error',
-    title: '错误!',
+    title: 'Error!',
     text: '[[${error}]]',
   });
 </script>
-
-<!-- 显示成功消息 -->
-<script th:if="${success != null}">
-  Swal.fire({
-    icon: 'success',
-    title: '成功!',
-    text: '[[${success}]]',
-  });
-</script>
-
-<a href="/patients" class="btn btn-primary">返回病人列表</a>
-<a href="/index" class="btn btn-secondary">返回目录</a>
-
 </body>
 </html>
